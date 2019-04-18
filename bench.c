@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2019 Boaz Sedan (boaz@1533.io)
@@ -19,3 +20,43 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+ */
+
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "b_itoa.h"
+
+static double the_time() {
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    return ts.tv_sec + ts.tv_nsec*1e-9;
+}
+
+int main() {
+  char buffer[64];
+
+  {
+    printf("[sprintf]\n");
+    unsigned n = 0;
+    double t0 = the_time();
+    for (uint64_t i=0; i<100000000; ++i) {
+        sprintf(buffer, "%ld", i*34);
+        n += buffer[0] + buffer[12];
+    }
+    double t1 = the_time();
+    printf(" Time: %f secs, checksum: %u\n", (t1-t0), n);
+  }
+
+  {
+    printf("[b_itoa]\n");
+    unsigned n = 0;
+    double t0 = the_time();
+    for (uint64_t i=0; i<100000000; ++i) {
+        b_itoa(i*34, buffer);
+        n += buffer[0] + buffer[12];
+    }
+    double t1 = the_time();
+    printf(" Time: %f secs, checksum: %u\n", (t1-t0), n);
+  }
+}

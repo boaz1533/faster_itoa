@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2019 Boaz Sedan (boaz@1533.io)
@@ -19,3 +20,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+#ifndef B_ITOA_H
+#define B_ITOA_H
+
+#ifdef __cplusplus__
+extern "C" {
+#endif
+
+#include <stdint.h>
+
+unsigned b_utoa(uint64_t n, char *buf);
+unsigned b_itoa(int64_t n, char *buf);
+
+#ifdef __cplusplus__
+}
+#endif
+
+#endif
